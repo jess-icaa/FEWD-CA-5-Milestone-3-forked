@@ -20,6 +20,21 @@ const App = () => {
 
     const fetchBooks = async () => {
       // your code here for task 1
+      try {
+        const resp = await fetch ('https://reactnd-books-api.udacity.com/book', 
+          {
+            headers : {
+              Authorization : "xyz",
+            }
+          }
+        );
+        const abc = await resp.json();
+        setBooks(abc.books);
+        setFilteredBooks(abc.books);
+      }
+      catch {
+        console.error(error);
+      }
     };
 
     fetchBooks();
@@ -30,6 +45,9 @@ const App = () => {
     // Hint: Filter the books array based on the searchText input
     // Convert both the book title and searchText to lowercase for a case-insensitive comparison
     // Update the filteredBooks state with the result of the filtering
+    const lastSearched = searchText.toLowerCase();
+    const filtered = books.filter ((book) => book.title.toLowerCase.includes(lastSearched));
+    setFilteredBooks(filtered);
   };
 
   const handleSuccessfulRegistration = () => {
